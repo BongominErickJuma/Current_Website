@@ -246,7 +246,7 @@
 
   const tabs = document.querySelectorAll(".nav-link");
   const tabContent = document.querySelector(".tab-pane");
-  const tabContentImg = tabContent.querySelector("img");
+  const tabContentImg = tabContent.querySelector(".tab-img");
 
   const ImgLinks = [
     "assets/img/chatter_2.gif",

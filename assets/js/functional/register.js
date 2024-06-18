@@ -8,18 +8,33 @@ proceedBtn.addEventListener("click", function () {
   const formData = Object.fromEntries(data);
   delete formData.otp;
 
-  function areAllFieldsFilled(formData) {
-    for (let key in formData) {
-      if (formData[key].trim() === "") {
-        return false;
-      }
-    }
-    return true;
-  }
-
   if (!areAllFieldsFilled(formData)) {
     errorInForm.classList.remove("d-none");
     errorInForm.textContent = "All fields are required";
+    setTimeout(() => {
+      errorInForm.classList.add("d-none");
+      errorInForm.textContent = "";
+    }, 5000);
+    return;
+  }
+
+  let emailField = document.querySelector('input[name="email"]');
+
+  if (!validateEmail(emailField.value)) {
+    errorInForm.classList.remove("d-none");
+    errorInForm.textContent = "Invalid Email";
+    setTimeout(() => {
+      errorInForm.classList.add("d-none");
+      errorInForm.textContent = "";
+    }, 5000);
+
+    return;
+  }
+
+  if (formData["password"].length < 5) {
+    errorInForm.classList.remove("d-none");
+    errorInForm.textContent =
+      "Password must contain at least five(5) characters";
     setTimeout(() => {
       errorInForm.classList.add("d-none");
       errorInForm.textContent = "";
@@ -34,27 +49,6 @@ proceedBtn.addEventListener("click", function () {
       errorInForm.classList.add("d-none");
       errorInForm.textContent = "";
     }, 5000);
-    return;
-  }
-
-  let emailField = document.querySelector('input[name="email"]');
-
-  // check if email is right
-
-  function validateEmail(email) {
-    const re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
-    return re.test(String(email).toLowerCase());
-  }
-
-  if (!validateEmail(emailField.value)) {
-    document.getElementById("loaderSection").classList.remove("d-none");
-    document.querySelector(".loader").textContent = "Email cannot be empty!";
-    document.querySelector(".loader").style.color = "red";
-    setTimeout(() => {
-      document.getElementById("loaderSection").classList.add("d-none");
-    }, 5000);
-
     return;
   }
 
@@ -156,3 +150,24 @@ submitBtn.addEventListener("click", function () {
       alert("Error: ", error);
     });
 });
+
+// functions
+
+// check if email is right
+
+function validateEmail(email) {
+  const re =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
+  return re.test(String(email).toLowerCase());
+}
+
+// check if all fields are filled
+
+function areAllFieldsFilled(formData) {
+  for (let key in formData) {
+    if (formData[key].trim() === "") {
+      return false;
+    }
+  }
+  return true;
+}
