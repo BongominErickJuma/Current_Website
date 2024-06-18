@@ -10,9 +10,13 @@ const continueBtn = $("#organizationProceedBtn");
 const orgSubmitBtn = $("#organizationSubmitButton");
 const orgInputError = $(".errorInOrgForm");
 const organizationOtpBtn = $("#organizationOtpBtn");
+
+const orgOtpSection = $("#orgOtpSection");
 const contactPerson = $(".contact-person");
 const organizationProfile = $(".organization-profile");
-const downKey = $(".back-to-business-profile");
+
+const editEmail = $(".edit-email");
+const emailField = $(".email-input");
 
 continueBtn.addEventListener("click", function (event) {
   event.preventDefault();
@@ -51,11 +55,13 @@ continueBtn.addEventListener("click", function (event) {
   continueBtn.textContent = "Please Wait...";
 
   const orgOtpSection = $("#orgOtpSection");
+
   setTimeout(() => {
     orgOtpSection.classList.remove("d-none");
     organizationOtpBtn.classList.remove("d-none");
     continueBtn.classList.add("d-none");
-    contactPerson.classList.add("freeze");
+    emailField.classList.add("freeze");
+    editEmail.classList.add("edit");
     continueBtn.textContent = "Continue >>>";
   }, 1500);
 });
@@ -81,11 +87,8 @@ organizationOtpBtn.addEventListener("click", function (event) {
     return;
   }
 
-  const orgOtpSection = $("#orgOtpSection");
-
   organizationOtpBtn.textContent = "Please Wait...";
   setTimeout(() => {
-    downKey.classList.remove("d-none");
     orgOtpSection.classList.add("d-none");
     organizationOtpBtn.classList.add("d-none");
     contactPerson.classList.add("d-none");
@@ -141,30 +144,14 @@ form.addEventListener("submit", function (event) {
   }, 1500);
 });
 
-const upKey = $(".back-to-contact-person");
-
-upKey.addEventListener("click", function (event) {
+editEmail.addEventListener("click", function (event) {
   event.preventDefault();
-  hideAll();
-  contactPerson.classList.remove("d-none");
-  $(".contact-person-form").classList.add("freeze");
-});
-
-downKey.addEventListener("click", function (event) {
-  event.preventDefault();
-  hideAll();
-  orgSubmitBtn.classList.remove("d-none");
-  organizationProfile.classList.remove("d-none");
-});
-
-function hideAll() {
-  contactPerson.classList.add("d-none");
-  continueBtn.classList.add("d-none");
-  orgOtpSection.classList.add("d-none");
+  emailField.classList.remove("freeze");
+  editEmail.classList.remove("edit");
   organizationOtpBtn.classList.add("d-none");
-  orgSubmitBtn.classList.add("d-none");
-  organizationProfile.classList.add("d-none");
-}
+  orgOtpSection.classList.add("d-none");
+  continueBtn.classList.remove("d-none");
+});
 
 function selectFields(obj, fields) {
   return fields.reduce((accumulator, field) => {

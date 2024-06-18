@@ -104,6 +104,18 @@
       *::-ms-scrollbar-thumb:hover {
         background: #555;
       }
+      .edit-email {
+        position: absolute;
+        top: 0.25rem;
+        color: #388da8;
+        right: 1rem;
+        cursor: pointer;
+        display: none;
+      }
+
+      .edit-email.edit {
+        display: block;
+      }
 
       .action-form {
         display: none;
@@ -128,8 +140,7 @@
       .list-group-item.active span {
         display: inline;
       }
-      .contact-person-form.freeze,
-      .contact-person.freeze {
+      .email-input.freeze {
         pointer-events: none;
         opacity: 0.7;
       }
@@ -387,15 +398,7 @@
                 >
                   <form method="post" id="organizationForm">
                     <div class="contact-person">
-                      <div
-                        class="p-2 d-flex align-items-start justify-content-between mb-2"
-                        style="color: #388da8; cursor: pointer"
-                      >
-                        <h5 class="fw-light">Contact Person</h5>
-                        <div class="back-to-business-profile d-none">
-                          <i class="bi bi-arrow-down-short"></i> back
-                        </div>
-                      </div>
+                      <h5 class="fw-light ps-2">Contact Person</h5>
                       <div class="contact-person-form">
                         <div class="col-12 p-2">
                           <div class="form-group">
@@ -409,14 +412,16 @@
                           </div>
                         </div>
                         <div class="col-12 p-2">
-                          <div class="form-group">
+                          <div class="form-group position-relative">
                             <input
                               type="email"
-                              class="form-control rounded"
+                              class="form-control rounded email-input"
                               name="email"
                               required
                               placeholder="Email"
                             />
+
+                            <div class="edit-email">Edit</div>
                           </div>
                         </div>
                         <div class="col-12 p-2">
@@ -464,15 +469,7 @@
                       />
                     </div>
                     <div class="organization-profile d-none">
-                      <div
-                        class="p-2 d-flex align-items-start justify-content-between mb-2"
-                        style="color: #388da8; cursor: pointer"
-                      >
-                        <h5 class="fw-light">Business Profile</h5>
-                        <div class="back-to-contact-person">
-                          <i class="bi bi-arrow-up-short"></i> back
-                        </div>
-                      </div>
+                      <h5 class="fw-light ps-2">Organization Profile</h5>
                       <div class="col-12 p-2">
                         <div class="form-group">
                           <input
@@ -504,8 +501,7 @@
                             class="form-control rounded"
                             name="organization_website"
                             id="organization_website"
-                            required
-                            placeholder="Organization Website"
+                            placeholder="Organization Website (Optional)"
                           />
                         </div>
                       </div>
@@ -755,9 +751,9 @@
         });
       }
       // show the first form by default
-      showForm("personal-form");
+      showForm("organization-form");
 
-      showBorder("personal-form-link");
+      showBorder("organization-form-link");
     </script>
 
     <!-- Vendor JS Files -->
@@ -770,7 +766,7 @@
     <!-- register JS File -->
 
     <script src="assets/js/functional/register.js"></script>
-    <script src="assets/js/functional/businessProfile.js"></script>
+    <script src="assets/js/functional/organization_profile.js"></script>
     <!-- Main JS File -->
     <script src="assets/js/main.js"></script>
   </body>
